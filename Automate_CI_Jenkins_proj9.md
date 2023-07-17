@@ -18,7 +18,7 @@ To enhance the architecture prepared in Project 8 by adding a Jenkins server(see
 ### Implementation
 
 #### INSTALL AND CONFIGURE JENKINS SERVER
-##### Step 1 – Install Jenkins server
+#### Step 1 – Install Jenkins server
 Create an AWS EC2 server based on Ubuntu Server 20.04 LTS and name it “Jenkins”
 
 ![Screenshot (515)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/f83cb806-ed96-4c63-a588-205055baaa20)
@@ -77,7 +77,10 @@ Then you will be asked which plugins to install – choose suggested plugins.
 
 ![Screenshot (521)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/ab739edf-e55b-4884-a530-4196c81c59fb)
 
+#### Step 2 – Configure Jenkins to retrieve source codes from GitHub using Webhooks
 
-- CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
+
+
+## CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
 
 
