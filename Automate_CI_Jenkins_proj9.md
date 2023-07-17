@@ -55,9 +55,9 @@ By default Jenkins server uses TCP port 8080 – open it by creating a new Inbou
 ![Screenshot (518)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/816551a8-2a86-484c-acc6-d45b5bff7be2)
 
 Perform initial Jenkins setup.
-From your browser access http://<Jenkins-Server-Public-IP-Address-or-Public-DNS-Name>:8080
+In our browser we can access Jenkins by using  the address: http://<Jenkins-Server-Public-IP-Address-or-Public-DNS-Name>:8080
 
-You will be prompted to provide a default admin password
+Provide a default admin password
 
  ![Screenshot (509)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/c6b5e8cb-213a-4dec-9e50-c993f1d6e57f)
 
@@ -66,11 +66,11 @@ Retrieve it from your server:
 
 `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`
 
-Then you will be asked which plugins to install – choose suggested plugins.
+Install the recommended plugins.
 
 ![Screenshot (519)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/bf734801-5861-4cb9-a313-960a9df4636e)
 
- Once plugins installation is done – create an admin user and you will get your Jenkins server address.
+ Create an admin user and retrieve the Jenkins server address.
 
 ![Screenshot (520)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/a147600a-1142-44f0-a492-7657d9518e5e)
 
@@ -78,15 +78,18 @@ Then you will be asked which plugins to install – choose suggested plugins.
 ![Screenshot (521)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/ab739edf-e55b-4884-a530-4196c81c59fb)
 
 #### Step 2 – Configure Jenkins to retrieve source codes from GitHub using Webhooks
-In this part, you will learn how to configure a simple Jenkins job/project (these two terms can be used interchangeably). This job will will be triggered by GitHub webhooks and will execute a ‘build’ task to retrieve codes from GitHub and store it locally on Jenkins server.
+In this part,we will configure a simple Jenkins job/project (these two terms can be used interchangeably). This job will will be triggered by GitHub webhooks and will execute a ‘build’ task to retrieve codes from GitHub and store it locally on Jenkins server.
 
-First we will enable webhooks in our GitHub repository settings:
+First, enable webhooks in  the GitHub repository settings:
 
+![Screenshot (539)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/17f06e82-c16a-4bb7-801a-5f3b33f462ba)
         
+![Screenshot (544)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/6f8671e1-29b4-49f1-9155-787783d5e8c7)
 
 Go to Jenkins web console, click “New Item” and create a “Freestyle project”
-        
 
+![Screenshot (545)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/81b42a89-59c4-4d37-a9d3-f8c0f9d10078)
+      
 To connect your GitHub repository, you will need to provide its URL, you can copy from the repository itself
 
  
@@ -130,4 +133,49 @@ By default, the artifacts are stored on Jenkins server locally
 
 ## CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
 
+Step 3 – Configure Jenkins to copy files to NFS server via SSH
+Now we have our artifacts saved locally on Jenkins server, the next step is to copy them to our NFS server to /mnt/apps directory.
 
+Jenkins is a highly extendable application and there are 1400+ plugins available. We will need a plugin that is called “Publish Over SSH”.
+
+Install “Publish Over SSH” plugin.
+On main dashboard select “Manage Jenkins” and choose “Manage Plugins” menu item.
+
+On “Available” tab search for “Publish Over SSH” plugin and install it 
+
+Configure the job/project to copy artifacts over to NFS server.
+On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
+
+Scroll down to Publish over SSH plugin configuration section and configure it to be able to connect to your NFS server:
+
+Provide a private key (content of .pem file that you use to connect to NFS server via SSH/Putty)
+Arbitrary name
+Hostname – can be private IP address of your NFS server
+Username – ec2-user (since NFS server is based on EC2 with RHEL 8)
+Remote directory – /mnt/apps since our Web Servers use it as a mointing point to retrieve files from the NFS server
+Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
+
+    
+
+Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
+
+ 
+
+Configure it to send all files produced by the build into our previously define remote directory. In our case we want to copy all files and directories – so we use **.
+If you want to apply some particular pattern to define which files to send – use this syntax.
+
+ 
+
+Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.
+
+Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
+
+SSH: Transferred 25 file(s)
+Finished: SUCCESS
+To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file
+
+cat /mnt/apps/README.md
+If you see the changes you had previously made in your GitHub – the job works as expected.
+
+Congratulations!
+You have just implemented your first Continuous Integration solution using Jenkins CI. Watch out for advanced CI configurations in upcoming projects.
