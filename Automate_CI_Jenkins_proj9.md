@@ -12,12 +12,16 @@ To enhance the architecture prepared in Project 8 by adding a Jenkins server(see
 
 1. Project 8
 2. Jenkins Server
+3. Github
+4. Webhooks
 
 ### Implementation
 
 #### INSTALL AND CONFIGURE JENKINS SERVER
 ##### Step 1 – Install Jenkins server
 Create an AWS EC2 server based on Ubuntu Server 20.04 LTS and name it “Jenkins”
+
+![Screenshot (515)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/f83cb806-ed96-4c63-a588-205055baaa20)
 
 
 Install JDK (since Jenkins is a Java-based application)
@@ -30,23 +34,33 @@ sudo apt install default-jdk-headless
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
  /etc/apt/sources.list.d/jenkins.list'
+
 sudo apt update
+
 sudo apt-get install jenkins
+
 ```
+
+![Screenshot (516)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/8449fd37-54b5-46ca-bc74-0467ee525160)
+
 
 Make sure Jenkins is up and running
 
 `sudo systemctl status jenkins`
 
+![Screenshot (517)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/bd4534b1-1fb8-4982-80b7-5878e3fda365)
+
 By default Jenkins server uses TCP port 8080 – open it by creating a new Inbound Rule in your EC2 Security Group
         
+![Screenshot (518)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/816551a8-2a86-484c-acc6-d45b5bff7be2)
 
 Perform initial Jenkins setup.
 From your browser access http://<Jenkins-Server-Public-IP-Address-or-Public-DNS-Name>:8080
 
 You will be prompted to provide a default admin password
 
- 
+ ![Screenshot (509)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/c6b5e8cb-213a-4dec-9e50-c993f1d6e57f)
+
 
 Retrieve it from your server:
 
@@ -54,10 +68,14 @@ Retrieve it from your server:
 
 Then you will be asked which plugins to install – choose suggested plugins.
 
- 
+![Screenshot (519)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/bf734801-5861-4cb9-a313-960a9df4636e)
 
-Once plugins installation is done – create an admin user and you will get your Jenkins server address.
+ Once plugins installation is done – create an admin user and you will get your Jenkins server address.
 
+![Screenshot (520)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/a147600a-1142-44f0-a492-7657d9518e5e)
+
+
+![Screenshot (521)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/ab739edf-e55b-4884-a530-4196c81c59fb)
 
 
 - CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
