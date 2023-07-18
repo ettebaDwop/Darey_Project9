@@ -7,3 +7,4 @@ This line was addedd after configuring webhooks
 - This is the next attempt as the first didnt succed but threw an unstable error.
 - Another attempt. This time I set the timeout to 0.
 - Another trial
+- It worked this time around after running the command: `sudo chmod 777 -r /mnt/apps`
