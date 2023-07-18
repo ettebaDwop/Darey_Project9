@@ -137,8 +137,8 @@ By default, the artifacts are stored on Jenkins server locally. To see this run:
 
 
 ## CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
-
 #### Step 3 – Configure Jenkins to copy files to NFS server via SSH
+
 Now we have our artifacts saved locally on Jenkins server, the next step is to copy them to our NFS server to /mnt/apps directory.
 
 Jenkins is a highly extendable application and there are 1400+ plugins available. We will need a plugin that is called “Publish Over SSH”.
