@@ -139,48 +139,55 @@ By default, the artifacts are stored on Jenkins server locally. To see this run:
 ## CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
 #### Step 3 – Configure Jenkins to copy files to NFS server via SSH
 
-Now we have our artifacts saved locally on Jenkins server, the next step is to copy them to our NFS server to /mnt/apps directory.
-
-Jenkins is a highly extendable application and there are 1400+ plugins available. We will need a plugin that is called “Publish Over SSH”.
+The artifacts have been  saved locally on Jenkins server, the next step is to copy them to our NFS server to /mnt/apps directory.To do this we will need a plugin that is called *“Publish Over SSH”.*
 
 1. Install “Publish Over SSH” plugin.
-On main dashboard select “Manage Jenkins” and choose “Manage Plugins” menu item.
+   
+a. Go to the main dashboard and select  “Manage Jenkins” and choose “Manage Plugins” menu item.
 
-On “Available” tab search for “Publish Over SSH” plugin and install it 
+b. On “Available” tab search for “Publish Over SSH” plugin and install it:
+
+![Screenshot (576)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/a9bfa070-10b4-4db9-bc28-9cc9973695ca)
 
 2. Configure the job/project to copy artifacts over to NFS server.
-On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
+   
+ - On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
 
-Scroll down to Publish over SSH plugin configuration section and configure it to be able to connect to your NFS server:
+- Scroll down to Publish over SSH plugin configuration section and configure it to be able to connect to your NFS server:
+![Screenshot (579)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/b432da9f-2dbc-45be-a9bc-be55d95ec371)
 
-Provide a private key (content of .pem file that you use to connect to NFS server via SSH/Putty)
-Arbitrary name
-Hostname – can be private IP address of your NFS server
-Username – ec2-user (since NFS server is based on EC2 with RHEL 8)
-Remote directory – /mnt/apps since our Web Servers use it as a mointing point to retrieve files from the NFS server
-Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
+- Provide a private key (content of .pem file used to connect to NFS server)
+- Arbitrary name
+- Hostname – can be private IP address of your NFS server
+- Username – ec2-user (since NFS server is based on EC2 with RHEL 8)
+- Remote directory – /mnt/apps since our Web Servers use it as a mointing point to retrieve files from the NFS server
+- Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
+- 
+![Screenshot (580)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/cc0f3f87-3ead-4863-970e-4e464137e4fd)
 
-    
+![Screenshot (578)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/7a9ce761-9e67-4671-910d-f9bffc29ffcb)
 
-Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
 
- 
+Save the configuration, open the Jenkins job/project configuration page and add another one “Post-build Action”
 
-Configure it to send all files produced by the build into our previously define remote directory. In our case we want to copy all files and directories – so we use **.
-If you want to apply some particular pattern to define which files to send – use this syntax.
+ Configure it to send all files produced by the build into our previously define remote directory. In our case we want to copy all files and directories – so we use **.
 
- 
+![Screenshot (580)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/5a7a9a12-a8c0-4230-8a0b-2673cc2213db)
 
-Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.
+If we change something in README.MD file in your GitHub Tooling repository.
 
-Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
+![Screenshot (582)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/d32b0f15-a0b4-4cd0-b6ae-f0d21e748059)
 
+Webhook will trigger a new job and in the “Console Output” of the job you will and we are likely tofind something like this:
+
+```
 SSH: Transferred 25 file(s)
 Finished: SUCCESS
+```
+
 To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file
 
-cat /mnt/apps/README.md
-If you see the changes you had previously made in your GitHub – the job works as expected.
+`cat /mnt/apps/README.md`
 
-Congratulations!
-You have just implemented your first Continuous Integration solution using Jenkins CI. Watch out for advanced CI configurations in upcoming projects.
+The changes made previously in my GitHub indicates that the job works as expected.
+
