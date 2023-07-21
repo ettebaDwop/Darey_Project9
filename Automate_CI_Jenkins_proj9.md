@@ -174,18 +174,18 @@ Save the configuration, open the Jenkins job/project configuration page and add 
 
 ![Screenshot (580)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/5a7a9a12-a8c0-4230-8a0b-2673cc2213db)
 
-If we change something in README.MD file in your GitHub Tooling repository.
+If we make a change in the README.MD file in our GitHub Tooling repository.
 
 ![Screenshot (582)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/d32b0f15-a0b4-4cd0-b6ae-f0d21e748059)
 
-Webhook will trigger a new job and in the “Console Output” of the job you will and we are likely tofind something like this:
+Webhook will trigger a new job and in the “Console Output” of the job you will and we are likely to find something like this:
 
 ```
 SSH: Transferred 25 file(s)
 Finished: SUCCESS
 ```
 
-To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file
+To make sure that the files in /mnt/apps have been updated – connect via SSH(or Putty) to the NFS server and check README.MD file
 
 `cat /mnt/apps/README.md`
 
