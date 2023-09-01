@@ -24,20 +24,25 @@ Create an AWS EC2 server based on Ubuntu Server 20.04 LTS and name it “Jenkins
 ![Screenshot (515)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/f83cb806-ed96-4c63-a588-205055baaa20)
 
 
-Install JDK (since Jenkins is a Java-based application)
+Install JDK (since Jenkins is a Java-based application, thus needs Java to run)
+
+#INSTALL JAVA
 ```
-sudo apt update
-sudo apt install default-jdk-headless
-
-#Install Jenkins
-
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
- /etc/apt/sources.list.d/jenkins.list'
 
 sudo apt update
+sudo apt install openjdk-17-jre
+java -version
+```
 
-sudo apt-get install jenkins
+**** INSTALL JENKINS***
+```
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkinss
 
 ```
 
