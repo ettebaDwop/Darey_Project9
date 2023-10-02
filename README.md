@@ -9,4 +9,4 @@ This line was addedd after configuring Webhooks.
 - Another trial
 - It worked this time around after running the command: `sudo chmod 777 -r /mnt/apps`
 - Why do I have to suffer thusfrom Jenkins?
-- 
+- I finally got round to getting the jobs to build without failure.
