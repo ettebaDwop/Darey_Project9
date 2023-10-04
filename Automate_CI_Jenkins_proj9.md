@@ -183,16 +183,17 @@ If we make a change in the README.MD file in our GitHub Tooling repository.
 
 ![Screenshot (582)](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/d32b0f15-a0b4-4cd0-b6ae-f0d21e748059)
 
-Webhook will trigger a new job and in the “Console Output” of the job you will and we are likely to find something like this:
+Webhook will trigger a new job and in the “Console Output” of the job  and it returned this:
 
-```
-SSH: Transferred 25 file(s)
-Finished: SUCCESS
-```
+![image](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/bc73d244-fc7a-4f44-b3f5-30a3525e16df)
+
 
 To make sure that the files in /mnt/apps have been updated – connect via SSH(or Putty) to the NFS server and check README.MD file
 
 `cat /mnt/apps/README.md`
+
+
+![image](https://github.com/ettebaDwop/Darey_Project9/assets/7973831/cf8b983b-a22a-4586-a77c-46d5f1b833c9)
 
 The changes made previously in my GitHub indicates that the job works as expected.
 
